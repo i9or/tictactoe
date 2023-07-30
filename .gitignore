@@ -39,3 +39,6 @@ cmake-build-release
 bin/*
 !bin/.gitkeep
 
+# Build folder
+build/*
+!build/.gitkeep
