@@ -1,5 +1,5 @@
 ---
-BasedOnStyle: Webkit
+BasedOnStyle: LLVM
 ColumnLimit: 80
 IndentWidth: 2
 TabWidth: 2

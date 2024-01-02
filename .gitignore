@@ -34,6 +34,7 @@
 # CLion
 cmake-build-debug
 cmake-build-release
+CMakeFiles
 
 # Executable
 bin/*
