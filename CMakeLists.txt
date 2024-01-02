@@ -16,17 +16,21 @@ add_subdirectory(vendor/SFML)
 
 file(GLOB_RECURSE TTT_SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.hpp)
 
+file(GLOB_RECURSE TTT_ASSETS CONFIGURE_DEPENDS assets/*.png)
+
 set(TTT_META
-  "README.md"
-  ".gitignore"
-  ".gitmodules"
-  ".clang-format"
-  "LICENSE")
+        "README.md"
+        ".gitignore"
+        ".gitmodules"
+        ".clang-format"
+        "LICENSE"
+        "AGPLv3_Logo.svg")
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TTT_SOURCES})
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TTT_ASSETS})
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TTT_META})
 
-add_executable(${PROJECT_NAME} ${TTT_SOURCES} ${TTT_META})
+add_executable(${PROJECT_NAME} ${TTT_SOURCES} ${TTT_ASSETS} ${TTT_META})
 
 target_link_libraries(${PROJECT_NAME}
         sfml-graphics
