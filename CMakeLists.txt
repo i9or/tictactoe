@@ -10,8 +10,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${PROJECT_OUTPUT_BIN_DIR}")
 
 include_directories(vendor/SFML/include)
 
-set(SFML_USE_STATIC_STD_LIBS TRUE)
-set(BUILD_SHARED_LIBS FALSE)
+# set(SFML_USE_STATIC_STD_LIBS TRUE)
+# set(BUILD_SHARED_LIBS FALSE)
 add_subdirectory(vendor/SFML)
 
 file(GLOB_RECURSE TTT_SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.hpp)
@@ -35,6 +35,4 @@ add_executable(${PROJECT_NAME} ${TTT_SOURCES} ${TTT_ASSETS} ${TTT_META})
 target_link_libraries(${PROJECT_NAME}
         sfml-graphics
         sfml-window
-        sfml-graphics
-        sfml-system
         sfml-audio)
