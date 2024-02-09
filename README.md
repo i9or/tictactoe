@@ -42,6 +42,12 @@ folder in the root of the project:
 ./bin/tictactoe
 ```
 
+## Attributions
+
+Music: https://www.chosic.com/free-music/all/
+
+Art: https://www.behance.net/garnenka
+
 ## License
 
 Code is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE Version 3 only.
