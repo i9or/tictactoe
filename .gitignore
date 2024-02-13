@@ -34,8 +34,12 @@
 # CLion
 cmake-build-debug
 cmake-build-release
+CMakeFiles
 
 # Executable
 bin/*
 !bin/.gitkeep
 
+# Build folder
+build/*
+!build/.gitkeep

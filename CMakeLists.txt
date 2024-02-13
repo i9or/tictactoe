@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.24)
-project(tictactoe VERSION 0.0.1)
+cmake_minimum_required(VERSION 3.27)
+project(tictactoe VERSION 0.0.2)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -14,10 +14,25 @@ set(SFML_USE_STATIC_STD_LIBS TRUE)
 set(BUILD_SHARED_LIBS FALSE)
 add_subdirectory(vendor/SFML)
 
-add_executable(${PROJECT_NAME} main.cpp)
+file(GLOB_RECURSE TTT_SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.hpp)
+
+file(GLOB_RECURSE TTT_ASSETS CONFIGURE_DEPENDS assets/*.png assets/*.mp3)
+
+set(TTT_META
+        "README.md"
+        ".gitignore"
+        ".gitmodules"
+        ".clang-format"
+        "LICENSE"
+        "AGPLv3_Logo.svg")
+
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TTT_SOURCES})
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TTT_ASSETS})
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${TTT_META})
+
+add_executable(${PROJECT_NAME} ${TTT_SOURCES} ${TTT_ASSETS} ${TTT_META})
+
 target_link_libraries(${PROJECT_NAME}
         sfml-graphics
         sfml-window
-        sfml-graphics
-        sfml-system
         sfml-audio)
