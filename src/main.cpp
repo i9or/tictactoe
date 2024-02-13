@@ -27,7 +27,6 @@ sf::Vector2u resolveFieldPosition(sf::Vector2i windowPosition) {
 
 std::tuple<GameState, std::vector<sf::Vector2u>>
 checkWinFor(Mark mark, const std::array<std::array<Mark, 3>, 3> &field) {
-
   for (const auto &condition : WINING_CONDITIONS) {
     if (std::all_of(condition.begin(), condition.end(),
                     [field, mark](auto position) {
@@ -196,34 +195,31 @@ int main() {
     if (gameState == GameState::Win) {
       sf::Vector2f v0{winningLine[0]};
       sf::Vector2f v1{winningLine[2]};
-      auto x0 = THIRD_OF_WINDOW * v0.x + THIRD_OF_WINDOW / 2.f;
-      auto y0 = THIRD_OF_WINDOW * v0.y + THIRD_OF_WINDOW / 2.f;
 
-      auto x1 = THIRD_OF_WINDOW * v1.x + THIRD_OF_WINDOW / 2.f;
-      auto y1 = THIRD_OF_WINDOW * v1.y + THIRD_OF_WINDOW / 2.f;
+      sf::Vector2f p0{THIRD_OF_WINDOW * v0.x + THIRD_OF_WINDOW / 2.f,
+                      THIRD_OF_WINDOW * v0.y + THIRD_OF_WINDOW / 2.f};
+      sf::Vector2f p1{THIRD_OF_WINDOW * v1.x + THIRD_OF_WINDOW / 2.f,
+                      THIRD_OF_WINDOW * v1.y + THIRD_OF_WINDOW / 2.f};
 
-      sf::Vector2f p0{x0, y0};
-      sf::Vector2f p1{x1, y1};
+      // Finding direction of the wining stroke
+      sf::Vector2f D = p1 - p0;
 
-      sf::Vector2f direction = p1 - p0;
-      auto directionLength =
-          sqrtf(powf(direction.x, 2.f) + powf(direction.y, 2.f));
+      // Normalize direction vector
+      D /= sqrtf(powf(D.x, 2.f) + powf(D.y, 2.f));
 
-      direction /= directionLength;
+      // Finding perpendicular to the direction
+      sf::Vector2f N{-D.y, D.x};
 
-      sf::Vector2f perpendicularToDirection{-direction.y, direction.x};
+      // Defining rectangle width
+      auto w = 25.f;
+      // Defining rectangle extension on each end
+      auto e = 75.f;
 
-      auto rectangleWidth = 25.f;
-      auto rectangleExtension = 75.f;
-
-      auto c0 = p0 + rectangleWidth * perpendicularToDirection -
-                rectangleExtension * direction;
-      auto c1 = p0 - rectangleWidth * perpendicularToDirection -
-                rectangleExtension * direction;
-      auto c2 = p1 + rectangleWidth * perpendicularToDirection +
-                rectangleExtension * direction;
-      auto c3 = p1 - rectangleWidth * perpendicularToDirection +
-                rectangleExtension * direction;
+      // Calculating rectangle corners
+      auto c0 = p0 + w * N - e * D;
+      auto c1 = p0 - w * N - e * D;
+      auto c2 = p1 + w * N + e * D;
+      auto c3 = p1 - w * N + e * D;
 
       winStroke[0].position = c0;
       winStroke[1].position = c2;
